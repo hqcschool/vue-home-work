@@ -8,16 +8,54 @@
     <script src="./common/vue.js"></script>
   </head>
   <body>
-    <div id="box">{{message}}</div>
+    <div id="app">
+      {{$options }}
+      <input type="text" v-bind:value="val" />
+    </div>
     <script>
-      const domBox = document.querySelector("#box");
-      Vue.config.productionTip = false;
-      new Vue({
-        el: domBox,
+      const vm = new Vue({
+        el: "#app",
         data: {
-          message: "你好vue",
+          val: "ikun",
+          ikun: "蔡徐坤",
         },
       });
+      console.log(vm);
+      //   let number = 19;
+      //   var person = {
+      //     name: "张三",
+      //     sex: "男",
+      //   };
+      //   //   delete person.sex;
+      //   //通过defineProperty给person对象添加一个age属性值为19
+      //   Object.defineProperty(person, "age", {
+      //     get() {
+      //       return number;
+      //     },
+      //     set(value) {
+      //       number = value;
+      //     },
+      //   });
+      //   console.log(person);
+      //   console.log(Object.keys(person)); //提取对象的所有属性,变成一个数组.
+
+      var number = "19";
+      var obj = {
+        x: "张三111",
+      };
+      var obj2 = {
+        y: "张三222",
+      };
+      Object.defineProperty(obj2, "x", {
+        get() {
+          return obj.x;
+        },
+        set(v) {
+          obj.x = v;
+        },
+      });
+      console.log(obj);
+      console.log(obj2);
     </script>
   </body>
 </html>
