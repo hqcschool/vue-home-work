@@ -9,6 +9,26 @@
   </head>
   <body>
     <div id="app"></div>
-    <script></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          student: [
+            {
+              name: "张三",
+              age: 18,
+            },
+            {
+              name: "李四",
+              age: 19,
+            },
+            {
+              name: "王五",
+              age: 20,
+            },
+          ],
+        },
+      });
+    </script>
   </body>
 </html>
