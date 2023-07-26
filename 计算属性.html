@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      姓:<input type="text" v-model="firstName" />
+      <hr />
+      名:<input type="text" v-model="lastName" />
+      <hr />
+      <!--必须得用括号,不然不是返回值,这里和事件哪里有区别,-->
+      全名:<span>{{firstName+"-"+lastName}}</span>
+      <hr />
+      全名:<span>{{firstName}}-{{lastName}}</span>
+      <hr />
+      全名:<span>{{fullName()}}</span>
+      <hr />
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          firstName: "张",
+          lastName: "三",
+        },
+        computed: {
+          fullName: {
+            get() {
+              return this.firstName + "-" + this.lastName;
+            },
+            set(value) {
+              const names = value.split("-");
+              this.firstName = names[0];
+              this.lastName = names[1];
+            },
+          },
+        },
+        methods: {
+          fullName() {
+            return this.firstName + "-" + this.lastName;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
