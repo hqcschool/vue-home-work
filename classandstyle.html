@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <style>
+      .common {
+        width: 500px;
+        height: 150px;
+        border: 2px solid #ccc;
+      }
+      .a {
+        color: red;
+      }
+      .bg1 {
+        background-color: skyblue;
+      }
+      .bg2 {
+        background-color: palevioletred;
+      }
+    </style>
+    <div id="app">
+      <div :class="basic">{{info}}</div>
+      <div :class="arr">{{info}}</div>
+      <div :class="obj">{{info}}</div>
+      <button @click="changeBg">切换变背景色</button>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          info: "为你战死是我至高无上的荣耀。 --天官赐福",
+          basic: "common bg1",
+          arr: ["bg1", "common"],
+          flag: true,
+          //   obj: {
+          //     common: true,
+          //     bg1: this.flag,
+          //     bg2: !this.flag,
+          //   },
+        },
+        methods: {
+          changeBg() {
+            //字符串切换
+            let thisClass = this.basic.split(" ");
+            this.basic = thisClass.includes("bg1")
+              ? "common bg2"
+              : "common bg1";
+            //数组切换
+            let index = this.arr.indexOf("bg1");
+            if (index > -1) {
+              this.arr.splice(index, 1, "bg2");
+            } else {
+              index = this.arr.indexOf("bg2");
+              this.arr.splice(index, 1, "bg1");
+            }
+            //对象切换
+            // this.obj.bg1 = !this.obj.bg1;
+            // this.obj.bg2 = !this.obj.bg2;
+            this.flag = !this.flag;
+          },
+        },
+        computed: {
+          obj() {
+            return {
+              common: true,
+              bg1: this.flag,
+              bg2: !this.flag,
+            };
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="getUser" />
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          user: "张三",
+          student: {
+            name: "李四",
+            age: 18,
+            sex: "女",
+          },
+        },
+        computed: {
+          getUser() {
+            console.log("触发了getuser");
+            setTimeout(() => {
+              this.user = 88888;
+            }, 2000);
+            return this.user;
+          },
+        },
+        watch: {
+          user() {
+            // console.log(666);
+            setTimeout(() => {
+              this.user = 88888;
+            }, 2000);
+          },
+          //   student: {
+          //     handler() {
+          //       console.log("有人动了student");
+          //     },
+          //     deep: true,
+          //   },
+          //   student() {
+          //     console.log("有人动了student");
+          //   },
+          //   "student.name": function () {
+          //     console.log(9999);
+          //   },
+        },
+        methods: {},
+      });
+      //   vm.$watch(
+      //     "user",
+      //     function (a, b) {
+      //       console.log("新的值:" + a, "9的值:" + b);
+      //     },
+      //     {
+      //       immediate: true,
+      //     }
+      //   );
+    </script>
+  </body>
+</html>

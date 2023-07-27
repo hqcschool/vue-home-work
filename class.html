@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <style>
+      .basic {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 500px;
+        height: 200px;
+      }
+      .bg {
+        background-color: skyblue;
+      }
+      .bg2 {
+        background-color: pink;
+      }
+      .font-big {
+        font-size: 30px;
+      }
+      .font-small {
+        font-size: 12px;
+      }
+      .font-red {
+        color: red;
+      }
+      .font-green {
+        color: green;
+      }
+    </style>
+    <div id="app">
+      <!-- 绑定class样式--字符串写法，适用于：样式的类名不确定，需要动态指定,class会叠加上去 -->
+      <p class="basic" :class="bg">{{name}}</p>
+      <button @click="changeBg">切换背景色</button>
+      <!-- 绑定class样式--数组写法，适用于：要绑定的样式个数不确定、名字也不确定 -->
+      <p class="basic" :class="arr">{{name}}</p>
+      <button @click="changeFont">切换字体大小</button>
+      <!-- 绑定class样式--对象写法，适用于：要绑定的样式个数确定、名字也确定，但要动态决定用不用 -->
+      <p class="basic" :class="classObj">{{name}}</p>
+      <button @click="changeColor">切换字体大小</button>
+      <br /><br />
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          name: "尼古拉斯赵四~",
+          arr: ["bg", "font-big"],
+          bg: "bg",
+          classObj: {
+            "font-green": true,
+            "font-red": false,
+          },
+        },
+        methods: {
+          changeBg() {
+            this.bg = this.bg === "bg" ? "bg2" : "bg";
+          },
+          changeFont() {
+            let toggleClass =
+              this.arr[1] == "font-big" ? "font-small" : "font-big";
+            this.arr.splice(1, 1, toggleClass);
+          },
+          changeColor() {
+            this.classObj["font-green"] = !this.classObj["font-green"];
+            this.classObj["font-red"] = !this.classObj["font-red"];
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

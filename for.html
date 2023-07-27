@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>学生列表</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>学生名字</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in student" :key="index">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>
+              <button @click="del(index)">删除</button><button>修改</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p v-for="(o,k) in obj" :key="k">{{k}}----{{o}}</p>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          obj: {
+            a: 111,
+            b: 222,
+            c: 333,
+          },
+          student: [
+            {
+              id: 1,
+              name: "张三",
+            },
+            {
+              id: 2,
+              name: "李四",
+            },
+            {
+              id: 3,
+              name: "王五",
+            },
+            {
+              id: 4,
+              name: "张三",
+            },
+          ],
+        },
+        methods: {
+          del(index) {
+            this.student.splice(index, 1);
+          },
+        },
+        computed: {},
+      });
+    </script>
+  </body>
+</html>

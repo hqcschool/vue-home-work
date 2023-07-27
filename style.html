@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <style>
+      .basic {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 500px;
+        height: 200px;
+      }
+      .bg {
+        background-color: skyblue;
+      }
+      .bg2 {
+        background-color: pink;
+      }
+      .font-big {
+        font-size: 30px;
+      }
+      .font-small {
+        font-size: 12px;
+      }
+      .font-red {
+        color: red;
+      }
+      .font-green {
+        color: green;
+      }
+    </style>
+    <div id="app">
+      <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
+        {{name}}
+      </div>
+      <br /><br />
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          name: "尼古拉斯赵四~",
+          activeColor: "red",
+          fontSize: 30,
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>

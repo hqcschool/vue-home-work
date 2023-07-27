@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <div id="box">
+      姓：<input type="text" v-model:value="firstName" />
+      <hr />
+      名：<input type="text" v-model="lastName" />
+      <hr />
+      全名：<span>{{firstName}} - {{lastName}}</span>
+      <hr />
+      全名：<span>{{firstName+ " - " +lastName}}</span>
+      <hr />
+      全名：<input type="text" v-model="fullName" />
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#box",
+        data: {
+          firstName: "张",
+          lastName: "三",
+          number: 123,
+          student:[
+            {
+                anam：123;
+            }
+          ]
+        },
+        computed: {
+          fullName: {
+            get() {
+              return this.firstName + " - " + this.lastName.this.number;
+            },
+            set(value) {
+              let fullNameArr = value.split("-");
+              this.firstName = fullNameArr[0];
+              this.lastName = fullNameArr[1];
+              console.log("有人修改哈");
+            },
+          },
+        },
+        // methods: {
+        //   fullName() {
+        //     console.log(888);
+        //     // for (let i = 0; i < 10000; i++) {
+        //     //   console.log(i);
+        //     // }
+        //     return this.firstName + " - " + this.lastName;
+        //   },
+        // },
+      });
+    </script>
+  </body>
+</html>

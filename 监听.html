@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">{{msg}}</div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "hello vue",
+          user: {
+            name: "张三",
+            age: 18,
+          },
+        },
+        computed: {
+          res() {
+            return this.msg + "-computed";
+          },
+        },
+
+        watch: {
+          //监听对象的某个属性
+          "user.age": function (newValue, oldValue) {
+            console.log(newValue, oldValue);
+          },
+          //监听对象的所有属性
+          user: {
+            handler(newValue, oldValue) {
+              console.log(newValue, oldValue);
+            },
+            deep: true,
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
