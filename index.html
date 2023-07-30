@@ -19,7 +19,7 @@
             <h2>刘豪</h2>
         </div>
         <p>八月份五段Vue学生</p>
-        <a :href="item.src" v-for="(item,index) in studentList" :key="index">{{item.name}}</a>
+        <a target="_blank" :href="item.src" v-for="(item,index) in studentList" :key="index">{{item.name}}</a>
     </div>
 </body>
 <script src="./common/vue.js"></script>
@@ -107,7 +107,7 @@
             ]
         }, methods: {
             zhuFun() {
-                location.href = 'www.baidu.com/'
+
             }
         }
     })
