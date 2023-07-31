@@ -9,14 +9,22 @@
   </head>
   <body>
     <div id="app">
-      <p v-for="(v,i) in 10" :key="i">{{i}}----{{v}}</p>
+      <p v-add10="abc">{{123}}</p>
     </div>
     <script>
       const vm = new Vue({
         el: "#app",
-        data: {
-          stu: "abcdefg",
+        directives: {
+          add10(el, binding) {
+            console.log(el, binding);
+            el.innerHTML = binding.value * 10;
+          },
         },
+        data: {
+          abc: "123",
+        },
+        methods: {},
+        computed: {},
       });
     </script>
   </body>
