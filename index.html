@@ -1,34 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="./common/vue.js"></script>
-  </head>
-  <body>
-    <div id="app">{{student[0].name}}</div>
-    <script>
-      new Vue({
-        el: "#app",
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八月份作业汇总</title>
+
+    <link rel="stylesheet" href="./index.css">
+
+</head>
+
+<body>
+
+
+    <div id="box">
+        <div class="jiao" @click="zhuFun">
+            <img src="./半身像.png">
+            <h2>刘豪</h2>
+        </div>
+        <p>八月份五段Vue学生</p>
+        <a target="_blank" :href="item.src" v-for="(item,index) in studentList" :key="index">{{item.name}}</a>
+    </div>
+</body>
+<script src="./common/vue.js"></script>
+<script>
+    new Vue({
+        el: '#box',
         data: {
-          student: [
-            {
-              name: "张三",
-              age: 18,
-            },
-            {
-              name: "李四",
-              age: 19,
-            },
-            {
-              name: "王五",
-              age: 20,
-            },
-          ],
-        },
-      });
-    </script>
-  </body>
+            studentList: [
+                {
+                    name: "赵宗福",
+                    src: "https://hqcschool.github.io/zhaozongfu/index.html",
+                },
+                {
+                    name: "刘振洲",
+                    src: "https://hqcschool.github.io/liuzhenzhou/home_htmls/index.html",
+                },
+                {
+                    name: "申卓凡",
+                    src: "https://hqcschool.github.io/shenzhuofan/index.html",
+                },
+                {
+                    name: "赵灿龙",
+                    src: "https://hqcschool.github.io/zhaocanlong/index.html",
+                },
+                {
+                    name: "余浩",
+                    src: "https://hqcschool.github.io/yuhao/index.html",
+                },
+                {
+                    name: "刘超祥",
+                    src: "https://hqcschool.github.io/liuchaoxiang/index.html",
+                },
+                {
+                    name: "赵帅博",
+                    src: "https://hqcschool.github.io/zhaoshuaibo/%E6%80%BB%E5%85%A5%E5%8F%A3.html",
+                },
+                {
+                    name: "刘佳佳",
+                    src: "https://hqcschool.github.io/liujiajia/index.html",
+                },
+                {
+                    name: "杨浩冰",
+                    src: "https://hqcschool.github.io/yanghaobing/index.html",
+                },
+                {
+                    name: "郑哲元",
+                    src: "https://hqcschool.github.io/zzy/",
+                },
+                {
+                    name: "甘天鸽",
+                    src: "https://hqcschool.github.io/giantiange/zong.html",
+                },
+                {
+                    name: "杨宏承",
+                    src: "https://hqcschool.github.io/YangHongCheng/index.html",
+                },
+                {
+                    name: "苏朋杰",
+                    src: "https://hqcschool.github.io/supengjie/BOSS.html",
+                },
+                {
+                    name: "李彦洋",
+                    src: "https://hqcschool.github.io/liyanyang/index.html",
+                },
+                {
+                    name: '董帅磊',
+                    src: 'https://hqcschool.github.io/dongshuailei/',
+                },
+                {
+                    name: '刘锦航',
+                    src: 'https://hqcschool.github.io/ljh/liujinhang/index'
+                },
+                {
+                    name: '齐博超',
+                    src: 'https://hqcschool.github.io/qibochao/mainindex.html'
+                },
+                {
+                    name: '董阳光',
+                    src: 'https://hqcschool.github.io/dongyangguang/'
+                },
+                {
+                    name: '张亚哲',
+                    src: 'https://hqcschool.github.io/zhangyazhe/ercixuexi/%E6%80%BB%E4%BD%9C%E4%B8%9A.html'
+                }
+            ]
+        }, methods: {
+            zhuFun() {
+
+            }
+        }
+    })
+</script>
+
 </html>
