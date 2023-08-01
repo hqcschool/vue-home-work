@@ -8,34 +8,66 @@
     <script src="./common/vue.js"></script>
   </head>
   <body>
-    <div id="root">
-      <h2 v-if="a">你好啊</h2>
-      <h2 :style="{opacity}">看笔记学Vue</h2>
+    <div id="root" :x="n">
+      3333333333333
+      <!-- <h2 v-text="n"></h2>
+      <h2>当前的n值是：{{ n }}</h2>
+      <button @click="add">点我n+1</button>
+      <button @click="bye">点我销毁vm</button> -->
     </div>
 
     <script type="text/javascript">
-      var vm = new Vue({
+      new Vue({
         el: "#root",
+        template: `
+        	<div>
+        		<h2>当前的n值是：{{n}}</h2>
+        		<button @click="add">点我n+1</button>
+        	</div>
+        `,
         data: {
-          a: false,
-          opacity: 1,
+          n: 1,
         },
-        methods: {},
-        // 🔴Vue 完成模板的解析并把初始的真实 DOM 元素放入页面后（挂载完毕）调用 mounted
+        methods: {
+          add() {
+            console.log("add");
+            this.n++;
+          },
+          bye() {
+            console.log("bye");
+            this.$destroy();
+          },
+        },
+        watch: {
+          n() {
+            console.log("n变了");
+          },
+        },
+        beforeCreate() {
+          console.log("beforeCreate");
+        },
+        created() {
+          console.log("created");
+        },
+        beforeMount() {
+          console.log("beforeMount");
+        },
         mounted() {
-          console.log("mounted", this);
-          setInterval(() => {
-            this.opacity -= 0.01;
-            if (this.opacity <= 0) this.opacity = 1;
-          }, 16);
+          console.log("mounted");
+        },
+        beforeUpdate() {
+          console.log("beforeUpdate");
+        },
+        updated() {
+          console.log("updated");
+        },
+        beforeDestroy() {
+          console.log("beforeDestroy");
+        },
+        destroyed() {
+          console.log("destroyed");
         },
       });
-
-      // 通过外部的定时器实现（不推荐）
-      setInterval(() => {
-        vm.opacity -= 0.01;
-        if (vm.opacity <= 0) vm.opacity = 1;
-      }, 16);
     </script>
   </body>
 </html>
