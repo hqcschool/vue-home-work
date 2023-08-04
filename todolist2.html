@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <style>
+    .todos-box {
+      width: 600px;
+      height: 700px;
+      border: 1px solid #ccc;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+    }
+    ul {
+      margin: 0 auto;
+      list-style: none;
+      width: 80%;
+      min-height: 300px;
+      border: 1px #ccc dashed;
+    }
+    .inp1 {
+      width: 35px;
+      height: 35px;
+      border: 1px solid #ccc;
+      vertical-align: middle;
+    }
+    .inp3 {
+      width: 25px;
+      height: 25px;
+      border: 1px solid #ccc;
+      vertical-align: middle;
+    }
+    .inp2 {
+      width: 87%;
+      height: 40px;
+      border: 1px solid #ccc;
+      vertical-align: middle;
+    }
+    li {
+      height: 30px;
+      line-height: 30px;
+      font-size: 20px;
+      margin: 10px;
+      border: 1px dashed #ccc;
+      text-align: left;
+    }
+    li:hover .delX {
+      display: block;
+    }
+    .del {
+      color: gray;
+      text-decoration: line-through;
+    }
+    .delX {
+      color: red;
+      font-size: 28px;
+      float: right;
+      margin-right: 20px;
+      display: none;
+      cursor: pointer;
+    }
+    a {
+      text-decoration: none;
+      color: #000;
+      margin: 10px 10px;
+    }
+    a:hover {
+      color: red;
+    }
+    a:active {
+      color: blue;
+    }
+    .active {
+      padding: 3px;
+      color: blue;
+      border: 1px solid #ccc;
+    }
+    .footer {
+      margin-top: 20px;
+    }
+    label {
+      display: inline-block;
+      width: 80%;
+    }
+    .inp4 {
+      width: 100%;
+      height: 30px;
+      border: 1px solid #ccc;
+      vertical-align: middle;
+    }
+  </style>
+  <body>
+    <div id="app">
+      <div class="todos-box">
+        <input type="checkbox" v-model="allStatus" />
+        <input
+          class="inp2"
+          type="text"
+          v-model="newContent"
+          name=""
+          id=""
+          @keyup.enter="addTodo"
+        />
+        <ul>
+          <li v-for="item in filterList" :key="item.id">
+            <div v-if="editItem!=item">
+              <input type="checkbox" v-model="item.status" name="" id="" />
+              <label @dblclick="edit(item)" :class="{del:item.status}"
+                >{{item.con}}</label
+              >
+              <button @click="delTodo(item)">删除</button>
+            </div>
+            <div v-else>
+              <input
+                v-myfocus="editItem"
+                v-model="item.con"
+                @keyup.enter="saveTodo(item)"
+                @keyup.esc="cancelSave(item)"
+                @blur="saveTodo(item)"
+                type="text"
+              />
+            </div>
+          </li>
+        </ul>
+        <div class="footer">
+          <span>当前{{incomplete}}项未完成</span>
+          <a
+            href="#"
+            :class="thisActive=='all'?'active':'' "
+            @click.prevent="thisActive='all'"
+            >All</a
+          >
+          <a
+            href="#"
+            :class="thisActive=='active'?'active':'' "
+            @click.prevent="thisActive='active'"
+            >Active</a
+          >
+          <a
+            href="#"
+            :class="thisActive=='completed'?'active':'' "
+            @click.prevent="thisActive='completed'"
+            >Completed</a
+          >
+          <a href="#" v-show="isShowClear" @click.prevent="clearCompleted"
+            >Clear completed</a
+          >
+        </div>
+      </div>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        directives: {
+          myfocus: {
+            inserted(el) {
+              el.focus();
+            },
+          },
+        },
+        data: {
+          editItem: null, //当前是否有编辑的item
+          thisActive: "all",
+          newContent: "", //新内容
+          cacheCon: "",
+          todoList: [],
+        },
+        watch: {
+          todoList: {
+            handler() {
+              localStorage.setItem("todoList", JSON.stringify(this.todoList));
+            },
+            deep: true,
+          },
+        },
+        created() {
+          this.getLocalData();
+        },
+        methods: {
+          getLocalData() {
+            this.todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+          },
+          edit(item) {
+            //数据缓存 把原值存起来
+            this.cacheCon = item.con;
+
+            this.editItem = item;
+          },
+          cancelSave(item) {
+            item.con = this.cacheCon;
+            this.editItem = null;
+          },
+          saveTodo(item) {
+            this.editItem = null;
+          },
+          addTodo() {
+            if (!this.newContent.trim()) return;
+            this.todoList.push({
+              id: this.todoList.length + 1,
+              con: this.newContent,
+              status: false,
+            });
+            this.newContent = "";
+          },
+          //删除
+          delTodo(item) {
+            this.todoList.splice(this.todoList.indexOf(item), 1);
+          },
+          //清楚已完成
+          clearCompleted() {
+            this.todoList = this.todoList.filter((item) => !item.status);
+          },
+        },
+        computed: {
+          isShowClear() {
+            return this.todoList.some((item) => item.status);
+          },
+          allStatus: {
+            get() {
+              return this.todoList.every((item) => item.status);
+            },
+            set(val) {
+              console.log(val);
+              this.todoList.forEach((item) => {
+                item.status = val;
+              });
+            },
+          },
+          filterList() {
+            let data = [];
+            switch (this.thisActive) {
+              case "all":
+                data = this.todoList;
+                break;
+              case "active":
+                data = this.todoList.filter((item) => !item.status);
+                break;
+              case "completed":
+                data = this.todoList.filter((item) => item.status);
+                break;
+            }
+            return data;
+          },
+          incomplete() {
+            return this.todoList.filter((item) => !item.status).length;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

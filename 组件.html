@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./common/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <school></school>
+      <hr />
+      <Student></Student>
+      <hr />
+      <mydesc></mydesc>
+    </div>
+    <div id="root">
+      <hr />
+      <my-school></my-school>
+    </div>
+    <script>
+      const school = {
+        template: `
+            <div>
+                <h1>学校名称：{{name}}</h1>
+                <h2>学校地址：{{address}}</h2>
+                <button @click="tip">点击弹出详细地址</button>
+            </div>
+        `,
+        data() {
+          return {
+            name: "清华大学",
+            address: "北京海淀",
+          };
+        },
+        methods: {
+          tip() {
+            alert("五道口职业技术学院");
+          },
+        },
+      };
+      const student = Vue.extend({
+        name: "stu",
+        template: `
+            <div>
+                <div>姓名：{{name}}</div>
+                <div>年龄：{{age}} </div>
+            </div>
+        `,
+        data() {
+          return {
+            name: "张三",
+            age: 19,
+          };
+        },
+      });
+      const desc = Vue.extend({
+        template: "<div>这是一个自我介绍组件</div>",
+      });
+      Vue.component("mydesc", desc);
+      const vm = new Vue({
+        el: "#app",
+        components: {
+          Student: student,
+          "my-school": school,
+        },
+      });
+      const vm2 = new Vue({
+        el: "#root",
+      });
+    </script>
+  </body>
+</html>
